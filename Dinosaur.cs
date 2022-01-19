@@ -11,7 +11,7 @@ namespace JurassicParkDatabase
         public int EnclosureNumber { get; set; }
         public string Description()
         {
-            return $"Name: {Name}\nAcquired: {WhenAcquired}\nEnclosure#: {EnclosureNumber}\nDiet Type: {DietType}\nWeight: {Weight}\n3";
+            return $"Name: {Name}\nAcquired: {WhenAcquired}\nEnclosure#: {EnclosureNumber}\nDiet Type: {DietType}\nWeight: {Weight}\n";
         }
 
 

@@ -31,10 +31,33 @@ namespace JurassicParkDatabase
 
                         break;
                     case "4":
-                        // TransferDinosaur();
+                        TransferDinosaur(dinosaurList);
                         break;
                     case "5":
-                        // SummaryDiet();
+                        // SummaryDiet
+                        Console.Clear();
+                        var numCarnivores = dinosaurList.Count(dino => dino.DietType == "C");
+                        var numHerbivores = dinosaurList.Count(dino => dino.DietType == "H");
+                        if (numCarnivores == 1)
+                        {
+                            Console.WriteLine($"Carnivore Count = {numCarnivores}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Carnivore Count = {numCarnivores}");
+                        }
+                        if (numHerbivores == 1)
+                        {
+                            Console.WriteLine($"Herbivore Count = {numHerbivores}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Herbivore Count = {numHerbivores}");
+                        }
+
+                        Console.WriteLine("\n\nPress ENTER to return to exit and return to menu.");
+                        Console.ReadLine();
+                        Console.Clear();
                         break;
                     case "6":
                         keepGoing = false;
@@ -42,6 +65,9 @@ namespace JurassicParkDatabase
                 }
             }
         }
+
+
+
         // -------------------------------------------------METHODS--------------------------------------------------------------------------
 
 
@@ -92,6 +118,33 @@ namespace JurassicParkDatabase
         }
 
 
+        private static void TransferDinosaur(List<Dinosaur> dinosaurList)
+        {
+            // TransferDinosaur
+            Console.Clear();
+            // ask for name of dino
+            var dinoTransferName = PromptForString("Name of transfer dinosaur: ");
+            // search for that dino
+            Dinosaur dinoToTransfer = dinosaurList.FirstOrDefault(dino => dino.Name == dinoTransferName);
+
+            if (dinoToTransfer == null)
+            {
+                // if null: prompt "doesn't exist"
+                Console.WriteLine("That does not exist in database");
+            }
+            else
+            {
+                // if exists: prompt which enclosure to transfer to?
+                var newEnclosureNumber = PromptForInteger("Enter new enclosure number: ");
+                dinoToTransfer.EnclosureNumber = newEnclosureNumber;
+                Console.WriteLine($"{dinoTransferName} has been transferred to enclosure {newEnclosureNumber}");
+
+                Console.WriteLine("\n\nPress ENTER to return to exit and return to menu.");
+                Console.ReadLine();
+                Console.Clear();
+            }
+        }
+
         private static void RemoveDinosaur(List<Dinosaur> dinosaurList)
         {
             Console.Clear();
@@ -134,7 +187,7 @@ namespace JurassicParkDatabase
             Console.Clear();
         }
 
-        
+
         private static void ViewAllDinosaurs(List<Dinosaur> dinosaurList)
         {
             // ViewDinosaur();
