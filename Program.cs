@@ -1,10 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace JurassicParkDatabase
 {
     class Program
     {
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine();
+
+            var dinosaurList = new List<Dinosaur>();
+            // var database = new DinosaurDatabase();
+            var keepGoing = true;
+            while (keepGoing)
+            {
+                Greeting();
+                var choice = Menu();
+                switch (choice)
+                {
+                    case "1":
+                        AddDinosaur(dinosaurList);
+                        break;
+                    case "2":
+                        RemoveDinosaur(dinosaurList);
+                        break;
+                    case "3":
+                        ViewAllDinosaurs(dinosaurList);
+
+                        break;
+                    case "4":
+                        // TransferDinosaur();
+                        break;
+                    case "5":
+                        // SummaryDiet();
+                        break;
+                    case "6":
+                        keepGoing = false;
+                        break;
+                }
+            }
+        }
+        // -------------------------------------------------METHODS--------------------------------------------------------------------------
+
+
+
+
         static void Greeting()
         {
             Console.WriteLine("**************************Welcome to Jurassic Park**************************");
@@ -34,7 +76,7 @@ namespace JurassicParkDatabase
 
         static int PromptForInteger(string prompt)
         {
-            Console.WriteLine(prompt);
+            Console.Write(prompt);
             int userInput;
             var isThisGoodInput = int.TryParse(Console.ReadLine(), out userInput);
 
@@ -47,76 +89,76 @@ namespace JurassicParkDatabase
                 Console.WriteLine("Unacceptable..Default:0 ");
                 return 0;
             }
-
         }
 
 
-        static void AddDinosaur()
+        private static void RemoveDinosaur(List<Dinosaur> dinosaurList)
+        {
+            Console.Clear();
+            // RemoveDinosaur
+            // Ask for dinosaur name to remove
+            var dinosaurNameToRemove = PromptForString("What is the name of the dinosaur you'd like to remove?: ");
+            // Search for that name in list of dino
+            Dinosaur dinosaurToRemove = dinosaurList.FirstOrDefault(dino => dino.Name == dinosaurNameToRemove);
+            // if null: say there's no dinos of that name
+            // else
+            // if there is: remove dino. Tell user that it's been done.
+            if (dinosaurToRemove == null)
+            {
+                Console.WriteLine($"There are no dinosaurs named {dinosaurNameToRemove} in the database.");
+            }
+            else
+            {
+                dinosaurList.Remove(dinosaurToRemove);
+                Console.WriteLine($"{dinosaurNameToRemove} has been removed!");
+                Console.WriteLine("\n\nPress ENTER to return to exit and return to menu.");
+                Console.ReadLine();
+                Console.Clear();
+            }
+        }
+
+        private static void AddDinosaur(List<Dinosaur> dinosaurList)
         {
             Console.Clear();
             Console.WriteLine("Adding");
+            var newDino = new Dinosaur();
+            newDino.Name = PromptForString("Enter name of dinosaur: ");
+            newDino.DietType = PromptForString("Diet Type - [C]arnivore or [H]erbivore: ");
+            newDino.EnclosureNumber = PromptForInteger("Enclosure Number: ");
+            newDino.Weight = PromptForInteger("Weight: ");
+            dinosaurList.Add(newDino);
+
+            Console.WriteLine($"{newDino.Name} has been added to the database!");
             Console.WriteLine("\n\nPress ENTER to return to exit and return to menu.");
             Console.ReadLine();
             Console.Clear();
         }
-        static void RemoveDinosaur()
-        {
-            // Console.Clear();
-            Console.WriteLine("Removing");
-            // Console.ReadLine();
-        }
-        static void ViewDinosaur()
-        {
-        }
-        static void TransferDinosaur()
-        {
-        }
-        static void SummaryDiet()
-        {
-        }
 
-
-        static void Main(string[] args)
+        
+        private static void ViewAllDinosaurs(List<Dinosaur> dinosaurList)
         {
-            Console.WriteLine();
-
-
-            var dinoList = new List<Dinosaur>();
-
-            var keepGoing = true;
-            while (keepGoing)
+            // ViewDinosaur();
+            Console.Clear();
+            if (dinosaurList.Count > 0)
             {
-                Greeting();
-                var choice = Menu();
-                switch (choice)
+                var byDateAcquired = dinosaurList.OrderBy(dino => dino.WhenAcquired);
+                Console.WriteLine("Displaying all dinosaurs: \n");
+                foreach (var dino in byDateAcquired)
                 {
-                    case "1":
-                        // Console.WriteLine("Adding!");
-                        AddDinosaur();
-
-                        break;
-                    case "2":
-                        RemoveDinosaur();
-                        break;
-                    case "3":
-                        ViewDinosaur();
-                        break;
-                    case "4":
-                        TransferDinosaur();
-                        break;
-                    case "5":
-                        SummaryDiet();
-                        break;
-                    case "6":
-                        keepGoing = false;
-                        break;
-
-
+                    Console.WriteLine(dino.Description());
                 }
-
             }
-
+            else
+            {
+                Console.WriteLine("There are no dinosaurs in database.");
+            }
+            Console.WriteLine("\n\nPress ENTER to return to exit and return to menu.");
+            Console.ReadLine();
+            Console.Clear();
         }
+
+
+
     }
 }
 
