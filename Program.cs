@@ -43,34 +43,6 @@ namespace JurassicParkDatabase
             }
         }
 
-        private static void DietSummary(List<Dinosaur> dinosaurList)
-        {
-            // SummaryDiet
-            Console.Clear();
-            var numCarnivores = dinosaurList.Count(dino => dino.DietType == "C");
-            var numHerbivores = dinosaurList.Count(dino => dino.DietType == "H");
-            if (numCarnivores == 1)
-            {
-                Console.WriteLine($"Carnivore Count = {numCarnivores}");
-            }
-            else
-            {
-                Console.WriteLine($"Carnivore Count = {numCarnivores}");
-            }
-            if (numHerbivores == 1)
-            {
-                Console.WriteLine($"Herbivore Count = {numHerbivores}");
-            }
-            else
-            {
-                Console.WriteLine($"Herbivore Count = {numHerbivores}");
-            }
-
-            Console.WriteLine("\n\nPress ENTER to return to exit and return to menu.");
-            Console.ReadLine();
-            Console.Clear();
-        }
-
 
 
         // -------------------------------------------------METHODS--------------------------------------------------------------------------
@@ -121,6 +93,35 @@ namespace JurassicParkDatabase
                 return 0;
             }
         }
+
+        private static void DietSummary(List<Dinosaur> dinosaurList)
+        {
+            // SummaryDiet
+            Console.Clear();
+            var numCarnivores = dinosaurList.Count(dino => dino.DietType == "C");
+            var numHerbivores = dinosaurList.Count(dino => dino.DietType == "H");
+            if (numCarnivores == 1)
+            {
+                Console.WriteLine($"Carnivore Count = {numCarnivores}");
+            }
+            else
+            {
+                Console.WriteLine($"Carnivore Count = {numCarnivores}");
+            }
+            if (numHerbivores == 1)
+            {
+                Console.WriteLine($"Herbivore Count = {numHerbivores}");
+            }
+            else
+            {
+                Console.WriteLine($"Herbivore Count = {numHerbivores}");
+            }
+
+            Console.WriteLine("\n\nPress ENTER to return to exit and return to menu.");
+            Console.ReadLine();
+            Console.Clear();
+        }
+
 
 
         private static void TransferDinosaur(List<Dinosaur> dinosaurList)
